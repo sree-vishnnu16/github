@@ -40,14 +40,21 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Center(
-          child: SizedBox(
-            height: 50,
-            child: SignInButton(
-              Buttons.gitHub,
-              onPressed: () {
-                context.read<LoginBloc>().add(GithubLoginRequested());
-              },
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Image.asset('lib/assets/images/logo.png', width: 150),
+              const SizedBox(height: 20),
+              SizedBox(
+                height: 50,
+                child: SignInButton(
+                  Buttons.gitHub,
+                  onPressed: () {
+                    context.read<LoginBloc>().add(GithubLoginRequested());
+                  },
+                ),
+              ),
+            ],
           ),
         ),
       ),

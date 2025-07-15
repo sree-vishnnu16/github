@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github/feature/github/application/use_cases/github_use_cases.dart';
+import 'package:github/feature/github/domain/entities/branch.dart';
 import 'github_event.dart';
 import 'github_state.dart';
 
@@ -14,6 +15,16 @@ class GitHubBloc extends Bloc<GitHubEvent, GitHubState> {
         emit(GitHubLoaded(repos));
       } catch (e) {
         emit(GitHubError(e.toString()));
+      }
+    });
+
+    on<FetchRepoBranchesWithCommits>((event, emit) async {
+      emit(RepoDetailLoading());
+      try {
+        final branches = await getUserRepositories.getBranches(event.owner, event.repo);
+        emit(RepoDetailLoaded(branches));
+      } catch (e) {
+        emit(RepoDetailError(e.toString()));
       }
     });
   }
