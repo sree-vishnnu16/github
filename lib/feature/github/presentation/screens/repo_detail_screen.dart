@@ -35,13 +35,14 @@ class _RepoDetailScreenState extends State<RepoDetailScreen> {
             return ListView(
               children: state.branches.map((branch) {
                 return ExpansionTile(
-                  title: Text(branch.name),
-                  // children: branch.commit.map((commit) {
-                  //   return ListTile(
-                  //     title: Text(commit.message),
-                  //     subtitle: Text('${commit.authorName} • ${commit.date}'),
-                  //   );
-                  // }).toList(),
+                  title: Text(branch.name, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.indigo)),
+                  children: branch.commits.map((commit) {
+                    return ListTile(
+                      title: Text(commit.message),
+                      subtitle: Text(
+                          '${commit.authorName} • ${DateTime.parse(commit.commitDate).toLocal()}'),
+                    );
+                  }).toList(),
                 );
               }).toList(),
             );

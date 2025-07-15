@@ -47,7 +47,7 @@ class GitHubRemoteService {
     );
 
     if (res.statusCode == 200) {
-      final data = jsonDecode(res.body);
+      final List<dynamic> data  = jsonDecode(res.body);
       return data.map((json) => CommitModel.fromJson(json)).toList();
     } else {
       throw Exception('Failed to load commits');

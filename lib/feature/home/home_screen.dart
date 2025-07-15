@@ -47,7 +47,7 @@ class _HomeScreenState extends State<HomeScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Home'),
+          title: Text('Github'),
         ),
         body: RefreshIndicator(
           onRefresh: _refreshRepositories,

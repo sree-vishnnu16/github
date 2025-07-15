@@ -22,12 +22,6 @@ class GitHubBloc extends Bloc<GitHubEvent, GitHubState> {
       emit(RepoDetailLoading());
       try {
         final branches = await getUserRepositories.getBranches(event.owner, event.repo);
-        // List<BranchEntity> branchEntities = [];
-        // for (var branch in branches) {
-        //   final commits = await getUserRepositories.getCommits(event.owner, event.repo, branch.name);
-        //   branch.copyWith(commits: commits);
-        //   branchEntities.add(branch);
-        // }
         emit(RepoDetailLoaded(branches));
       } catch (e) {
         emit(RepoDetailError(e.toString()));

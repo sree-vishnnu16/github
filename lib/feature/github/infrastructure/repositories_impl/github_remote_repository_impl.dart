@@ -58,7 +58,11 @@ class GitHubRemoteRepositoryImpl implements GitHubRepository {
               sha: branch.headCommit!.sha ?? '',
               url: branch.headCommit!.url ?? '',
             ),
-            commits: List<CommitEntity>.empty(growable: true),
+            commits: await getCommits(
+              owner: owner,
+              repo: repo,
+              branch: branch.name!,
+            ),
           ),
         );
       } else {
