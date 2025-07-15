@@ -8,26 +8,18 @@ class LoginRemoteRepositoryImpl implements LoginRepository {
   @override
   Future<LoginEntity> signInWithGithub() async {
     final userCredential = await LoginRemoteService().signInWithGithub();
-    if (userCredential != null && userCredential.user != null) {
-      final user = userCredential.user;
-      final oauthCredential = userCredential.credential as OAuthCredential;
-      final token = oauthCredential.accessToken;
+    final user = userCredential!.user;
+    final oauthCredential = userCredential.credential as AuthCredential;
+    final token = oauthCredential.accessToken;
 
-      if (token != null) {
-        await TokenStorage().saveToken(token);
-      }
-
-      return LoginEntity(
-        uid: user!.uid,
-        email: user.email,
-        token: token,
-      );
-    } else {
-      return LoginEntity(
-        uid: '',
-        email: '',
-        token: '',
-      );
+    if (token != null) {
+      await TokenStorage().saveToken(token);
     }
+
+    return LoginEntity(
+      uid: user!.uid,
+      email: user.email,
+      token: token,
+    );
   }
 }

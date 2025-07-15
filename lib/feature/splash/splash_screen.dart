@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:github/core/routes/routes.dart';
+import 'package:github/feature/login/infrastructure/data/local/token_storage.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -11,25 +12,36 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final TokenStorage _tokenStorage = TokenStorage();
+
   @override
   void initState() {
     super.initState();
+    _checkLoginStatus();
+  }
 
-    // Simulate a delay before navigating
-    Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, Routes.login); // Replace with your home route
-    });
+  Future<void> _checkLoginStatus() async {
+    final token = await _tokenStorage.getToken();
+
+    await Future.delayed(const Duration(seconds: 2)); // Simulate loading
+
+    if (token != null && token.isNotEmpty) {
+      Navigator.pushReplacementNamed(context, Routes.home); // User is logged in
+    } else {
+      Navigator.pushReplacementNamed(
+          context, Routes.login); // User is not logged in
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white, // Change as needed
+      backgroundColor: Colors.white,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset('lib/assets/images/logo.png', width: 150), // Your logo
+            Image.asset('lib/assets/images/logo.png', width: 150),
             const SizedBox(height: 20),
             const Text(
               "Github",
