@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     // Simulate a delay before navigating
     Timer(const Duration(seconds: 3), () {
-      Navigator.pushReplacementNamed(context, Routes.home); // Replace with your home route
+      Navigator.pushReplacementNamed(context, Routes.login); // Replace with your home route
     });
   }
 
