@@ -15,6 +15,6 @@ LoginEntity _$LoginEntityFromJson(Map<String, dynamic> json) => LoginEntity(
 Map<String, dynamic> _$LoginEntityToJson(LoginEntity instance) =>
     <String, dynamic>{
       'uid': instance.uid,
-      if (instance.email case final value?) 'email': value,
-      if (instance.token case final value?) 'token': value,
+      'email': instance.email,
+      'token': instance.token,
     };

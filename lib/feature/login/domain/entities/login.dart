@@ -3,7 +3,7 @@ import 'package:equatable/equatable.dart';
 
 part 'login.g.dart';
 
-@JsonSerializable(includeIfNull: false)
+@JsonSerializable(explicitToJson: false)
 class LoginEntity extends Equatable {
   final String uid;
   final String? email;

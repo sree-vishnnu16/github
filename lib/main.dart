@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github/core/routes/routes.dart';
 import 'package:github/core/use_cases_injection/github_usecases_injection.dart';
+import 'package:github/feature/github/presentation/bloc/github_bloc.dart';
 import 'package:github/feature/login/presentation/bloc/login_bloc.dart';
 import 'package:github/firebase_options.dart';
 import 'package:provider/provider.dart';
@@ -30,7 +31,11 @@ class GithubApp extends StatelessWidget {
           BlocProvider<LoginBloc>(
             create: (context) =>
                 LoginBloc(useCasesInjection.signInWithGithubUseCase),
-          )
+          ),
+          BlocProvider<GitHubBloc>(
+            create: (context) =>
+                GitHubBloc(useCasesInjection.getUserRepositoriesUseCase),
+          ),
         ],
         child: MaterialApp(
           navigatorKey: navigatorKey,

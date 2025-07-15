@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github/feature/github/presentation/screens/github_screen.dart';
 import 'package:github/feature/login/presentation/bloc/login_bloc.dart';
 import 'package:github/feature/login/presentation/bloc/login_event.dart';
 import 'package:github/feature/login/presentation/bloc/login_state.dart';
+import 'package:github/feature/github/presentation/bloc/github_bloc.dart';
+import 'package:github/feature/github/presentation/bloc/github_event.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,6 +13,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  Future<void> _refreshRepositories() async {
+    context.read<GitHubBloc>().add(FetchRepositories());
+    // Optionally wait for completion, e.g., by listening to a stream or delay
+    await Future.delayed(Duration(milliseconds: 300)); // simulate wait
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<LoginBloc, LoginState>(
@@ -40,8 +49,12 @@ class _HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: Text('Home'),
         ),
-        body: Center(
-          child: Text('Home Content Here'),
+        body: RefreshIndicator(
+          onRefresh: _refreshRepositories,
+          child: const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: GitHubListView(),
+          ),
         ),
         bottomNavigationBar: BottomAppBar(
           child: Padding(
