@@ -6,7 +6,11 @@ class SignInWithGithubUseCase {
 
   SignInWithGithubUseCase(this.repository);
 
-  Future<LoginEntity> execute() {
+  Future<LoginEntity> signIn() {
     return repository.signInWithGithub();
+  }
+
+  Future<bool> signOut() {
+    return repository.signOut();
   }
 }

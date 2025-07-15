@@ -13,4 +13,15 @@ class LoginRemoteService {
       rethrow;
     }
   }
+
+  Future<bool> signOut() async {
+    try {
+       await FirebaseAuth.instance.signOut();
+       return true;
+    } on FirebaseAuthException catch (e) {
+      rethrow;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

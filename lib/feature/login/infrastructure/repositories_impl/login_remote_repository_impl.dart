@@ -22,4 +22,12 @@ class LoginRemoteRepositoryImpl implements LoginRepository {
       token: token,
     );
   }
+
+  @override
+  Future<bool> signOut() async {
+    //Sign out firebase
+    await LoginRemoteService().signOut();
+    await TokenStorage().deleteToken();
+    return true;
+  }
 }

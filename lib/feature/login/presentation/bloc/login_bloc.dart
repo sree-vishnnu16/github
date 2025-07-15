@@ -10,10 +10,21 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<GithubLoginRequested>((event, emit) async {
       emit(LoginLoading());
       try {
-        final user = await githubLoginUseCase.execute();
+        final user = await githubLoginUseCase.signIn();
         emit(LoginSuccess(user));
       } catch (e) {
         emit(LoginFailure(e.toString()));
+      }
+    });
+
+    on<LogoutRequest>((event, emit) async {
+      emit(LogoutLoading());
+      try {
+        // Perform logout logic here
+        final success = await githubLoginUseCase.signOut();
+        emit(LogoutSuccess(success));
+      } catch (e) {
+        emit(LogoutFailure(e.toString()));
       }
     });
   }
